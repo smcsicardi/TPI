@@ -35,6 +35,9 @@ class Pelicula {
   bool es3D_;
 };
 
+void sacarActoresRepConsec(Lista<string> orig);
+void sacarGenerosRepConsec(Lista<Genero> orig);
+
 std::ostream & operator<<(std::ostream & os,const Pelicula & p);
 std::istream & operator>>(std::istream & is, Pelicula & p);
 

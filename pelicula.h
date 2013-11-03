@@ -35,6 +35,10 @@ class Pelicula {
   bool es3D_;
 };
 
+
+//ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR
+// Acordemosnos de preguntar si esto se puede. Marto puto ERROR ERROR ERROR ERROR
+
 void sacarActoresRepConsec(Lista<string> orig);
 void sacarGenerosRepConsec(Lista<Genero> orig);
 

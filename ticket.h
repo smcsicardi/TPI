@@ -1,4 +1,3 @@
-
 #ifndef TICKET_H_
 #define TICKET_H_
 
@@ -17,8 +16,7 @@ class Ticket {
   Pelicula peliculaMenosVistaT(const Lista<Ticket> &ts) const;
   bool todosLosTicketsParaLaMismaSalaT(const Lista<Ticket> &ts) const;
   Lista<Ticket> cambiarSalaT(const Lista<Ticket> &ts, Sala vieja, Sala nueva) const;
-  Ticket ingresarASalaC(Sala s, const Ticket &t);
-
+  
   bool operator==(const Ticket &otro) const {
     return pelicula_ == otro.pelicula_ && sala_ == otro.sala_ && usado_ == otro.usado_;
   }
@@ -32,6 +30,8 @@ class Ticket {
   Sala sala_;
   bool usado_;
 };
+
+int cuentaTicketsUsados(Pelicula p, Lista<Ticket> ts);
 
 std::ostream & operator<<(std::ostream & os,const Ticket & t);
 std::istream & operator>>(std::istream & is, Ticket & t);

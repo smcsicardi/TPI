@@ -1,4 +1,6 @@
 #include "pelicula.h"
+
+using namespace std;
  
 Pelicula::Pelicula (Nombre n, Lista<Genero> gs, Lista<Actor> as, bool b) {
   nombre_ = n;
@@ -24,6 +26,10 @@ bool Pelicula::es3DP() const {
   return es3D_;
 }
 
-Lista<std::pair<Genero,Lista<Pelicula> > > Pelicula::agruparPelisPorGeneroP(Lista<Pelicula> ps) const{
+Lista<pair<Genero,Lista<Pelicula> > > Pelicula::agruparPelisPorGeneroP(Lista<Pelicula> ps) const{
 
 };
+
+Lista<Pelicula> generarSagaDePeliculasP(Lista<Actor> as, Lista<Genero> gs, Lista<Nombre> nombres) const {
+ 
+}

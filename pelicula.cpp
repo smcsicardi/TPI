@@ -1,14 +1,11 @@
 #include "pelicula.h"
 
-using namespace std;
- 
 Pelicula::Pelicula (Nombre n, Lista<Genero> gs, Lista<Actor> as, bool b) {
   nombre_ = n;
   generos_ = gs;
   actores_ = as;
   es3D_ = b;
 }
-
 
 string Pelicula::nombreP() const {
   return nombre_;
@@ -31,24 +28,26 @@ Lista<pair<Genero,Lista<Pelicula> > > Pelicula::agruparPelisPorGeneroP(Lista<Pel
 };
 
 Lista<Pelicula> Pelicula::generarSagaDePeliculasP(Lista<Actor> as, Lista<Genero> gs, Lista<Nombre> nombres) const {
- Lista<Pelicula> res;
- int cant = nombres.longitud();
- int i = 0;
- sacarGenerosRepConsec(gs);
- sacarActoresRepConsec(as);
- while (i < cant) {
+  Lista<Pelicula> res;
+  int cant = nombres.longitud()
+    , i = 0
+    ;
+  sacarGenerosRepConsec(gs);
+  sacarActoresRepConsec(as);
+  while (i < cant) {
     res.agregarAtras(Pelicula(nombres.iesimo(i), gs, as, false));
     i++;
- }
- return res;
+  }
+  return res;
 }
 
 //######## Auxiliares #########
 
 
 void sacarActoresRepConsec(Lista<Actor> &orig) {
-  int l = orig.longitud() - 1;
-  int i = 0;
+  int l = orig.longitud() - 1
+    , i = 0
+    ;
   while (i < l) {
      if (orig.iesimo(i) == orig.iesimo(i+1)){
        orig.eliminarPosicion(i);
@@ -57,19 +56,18 @@ void sacarActoresRepConsec(Lista<Actor> &orig) {
        i++;
      }
   }
-  return;
 }
 
 void sacarGenerosRepConsec(Lista<Genero> &orig) {
-  int l = orig.longitud() - 1;
-  int i = 0;
+  int l = orig.longitud() - 1
+    , i = 0
+    ;
   while (i < l) {
-     if (orig.iesimo(i) == orig.iesimo(i+1)){
-       orig.eliminarPosicion(i);
-       l--;
-     } else {
-       i++;
-     }
+    if (orig.iesimo(i) == orig.iesimo(i+1)){
+      orig.eliminarPosicion(i);
+      l--;
+    } else {
+      i++;
+    }
   }
-  return;
 }

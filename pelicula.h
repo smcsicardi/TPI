@@ -18,10 +18,7 @@ class Pelicula {
 
 
   bool operator==(const Pelicula &otraPeli) const {
-      if (!(nombre_ == otraPeli.nombre_)) return false;
-      if (!(generos_ == otraPeli.generos_)) return false;
-      if (!(actores_ == otraPeli.actores_)) return false;
-      return true;
+      return nombre_ == otraPeli.nombre && generos_ == otraPeli.generos_ && actores_ == otraPeli.actores_;
   }
 
   void mostrar(std::ostream& os) const;
@@ -44,6 +41,5 @@ void sacarGenerosRepConsec(Lista<Genero> orig);
 
 std::ostream & operator<<(std::ostream & os,const Pelicula & p);
 std::istream & operator>>(std::istream & is, Pelicula & p);
-
 
 #endif // PELICULA_H_

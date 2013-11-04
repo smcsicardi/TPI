@@ -23,7 +23,7 @@ bool Pelicula::es3DP() const {
   return es3D_;
 }
 
-Lista<pair<Genero,Lista<Pelicula> > > Pelicula::agruparPelisPorGeneroP(Lista<Pelicula> ps) const{
+Lista<pair<Genero,Lista<Pelicula> > > Pelicula::agruparPelisPorGeneroP(Lista<Pelicula> ps) const {
 
 };
 
@@ -41,10 +41,9 @@ Lista<Pelicula> Pelicula::generarSagaDePeliculasP(Lista<Actor> as, Lista<Genero>
   return res;
 }
 
-//######## Auxiliares #########
+//auxiliares
 
-
-void sacarActoresRepConsec(Lista<Actor> &orig) {
+void Pelicula::sacarActoresRepConsec(Lista<Actor> &orig) {
   int l = orig.longitud() - 1
     , i = 0
     ;
@@ -58,7 +57,7 @@ void sacarActoresRepConsec(Lista<Actor> &orig) {
   }
 }
 
-void sacarGenerosRepConsec(Lista<Genero> &orig) {
+void Pelicula::sacarGenerosRepConsec(Lista<Genero> &orig) {
   int l = orig.longitud() - 1
     , i = 0
     ;

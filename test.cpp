@@ -212,7 +212,7 @@ void TestTicket()
   Lista<Ticket> ts2;
   ts2 = ts;
   
-  a.cambiarSalaT(ts,2,4);
+ts =a.cambiarSalaT(ts,2,4);
   for(int i = 0; i < ts.longitud(); i++) {
     if(!((ts2.iesimo(i).salaT() == 2 && ts.iesimo(i).salaT() == 4) || (ts2.iesimo(i).salaT() != 2 && ts.iesimo(i).salaT() == ts2.iesimo(i).salaT()))) fallo = 1, cout << "Falla cambiarSalaT" << endl;
   }

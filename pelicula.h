@@ -33,6 +33,9 @@ class Pelicula {
     Lista<Genero> generos_;
     Lista<Actor> actores_;
     bool es3D_;
+    
+    Genero strToGenero(string g) const;
+    string generoToStr(Genero g) const;
 
     void sacarActoresRepConsec(Lista<string> orig);
     void sacarGenerosRepConsec(Lista<Genero> orig);

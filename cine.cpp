@@ -117,3 +117,177 @@ void Cine::cerrarSalasDeLaCadenaC(Lista<Cine> &cs, int e) const {
     i++;
   }
 }
+
+Pelicula Cine::peliculaC(Sala s) const{
+    int i = 0;
+    int l = peliculas_.longitud();
+    Pelicula res;
+    while (i < l) {
+        if (peliculas_.iesimo(i).second == s) {
+            res = peliculas_.iesimo(i).first;
+        }
+        i++;
+    }
+    return res;
+}
+
+Ticket Cine::venderTicketC(const Nombre &p) {
+    int i = 0;
+    int l = peliculas_.longitud();
+    Ticket res;
+    while (i < l) {
+        if (peliculas_.iesimo(i).first.nombreP() == p) {
+            res = Ticket(peliculas_.iesimo(i).first, Cine::salaC(p), false);
+        }
+        i++;
+    }
+    ticketsVendidos_.agregarAtras(res);
+    return res;
+}
+
+Pelicula Cine::pasarA3DUnaPeliculaC(Nombre n) {
+    int i = 0;
+    int l = peliculas_.longitud();
+    Pelicula res;
+    Lista<pair<Pelicula, Sala> > peList;
+    while (i < l) {
+        Pelicula peliI = peliculas_.iesimo(i).first;
+        if (peliI.nombreP() != n) {
+            peList.agregarAtras(peliculas_.iesimo(i));
+        } else {
+            res = Pelicula(n,peliI.generosP(),peliI.actoresP(),true);
+            peList.agregarAtras(pair<Pelicula, Sala>(res,salaC(n)));
+            }
+        i++;
+    }
+    peliculas_ = peList;
+    return res;
+}
+
+Ticket Cine::ingresarASalaC(Sala s, const Ticket &t) {
+    int i = 0, e;
+    Ticket r = t;
+    while (i < espectadores_.longitud()) {
+        if (espectadores_.iesimo(i).first == s) {
+            e = espectadores_.iesimo(i).second;
+            espectadores_.eliminarPosicion(i);
+            espectadores_.agregar(pair<Sala, int>(s,e + 1));
+        }
+        i++;
+    }
+    ticketsVendidos_.sacar(t);
+    r.usarT();
+    return r;
+}
+
+void Cine::mostrar(std::ostream& os) const {
+    int i = 0;
+    os << "Nombre: " << nombre_ << endl << "Salas y espectadores de cada una: " << espectadores_ << endl
+       << "Peliculas: ";
+
+    while (i < peliculas_.longitud()) {
+        peliculas_.iesimo(i).first.mostrar(os);
+        os <<"Sala: " << peliculas_.iesimo(i).second;
+        i++;
+    }
+    os << endl << "Tickets Vendidos";
+    i = 0;
+    while (i < ticketsVendidos_.longitud()) {
+        ticketsVendidos_.iesimo(i).mostrar(os);
+        i++;
+    }
+    os << endl << "Salas sin usar: " << salasSinUsar_;
+}
+
+void Cine::guardar(std::ostream& os) const {
+    int i = 0;
+    os << "C |" << nombre_ << "| [";
+    while (i < salasSinUsar_.longitud()){
+        os << (i == 0 ? "" : ", ") << salasSinUsar_.iesimo(i);
+        i++;
+    }
+    os << "] [";
+
+    i = 0;
+    while (i < espectadores_.longitud()){
+        pair<Sala, int> e = espectadores_.iesimo(i);
+        os << (i == 0 ? "" : ", ") << "(" << e.first << "," << e.second << ")";
+        i++;
+    }
+    os << "] [";
+
+    i = 0;
+    while (i < ticketsVendidos_.longitud()){
+        Ticket t = ticketsVendidos_.iesimo(i);
+        os << (i == 0 ? "" : ", ") << "(" << t.salaT() << ",";
+        t.guardar(os);
+        os << ")";
+        i++;
+    }
+    os << "] [";
+
+    i = 0;
+    while (i < peliculas_.longitud()) {
+        pair<Pelicula,Sala> p = peliculas_.iesimo(i);
+        os << (i == 0 ? "" : ", ") << "(" << p.second << ", (";
+        p.first.guardar(os);
+        os << "))";
+    }
+    os << "]";
+}
+
+void Cine::cargar (std::istream& is){
+    char p;
+    int s,
+        e,
+        i = 0,
+        x;
+    Ticket t;
+    Pelicula peli;
+    pair<Sala, int> sala;
+    is >> p; // C
+    is >> p; // |
+    getline(is,nombre_,'|'); // nombre y saca el |
+
+    is >> p; // [
+    while ( p != ']') {
+        is >> x;
+        salasSinUsar_.agregarAtras(x);
+        is >> p;
+    }
+
+    is >> p; // [
+    is >> p; // (
+    while (p == '(') {
+        getline(is, s, ','); // saca hasta la coma de la dupla
+        getline(is,e, ')'); // saca los espectadores
+
+        sala = pair<Sala, int>(s,e);
+        espectadores_.agregarAtras(sala);
+        is >> p; //saca la coma
+        is >> p; // es un parentesis o es un corchete
+    }
+
+    is >> p; // [
+    is >> p; // (
+    while (p == '(') {
+        getline(is,x,',');
+        getline(is,t,')');
+        ticketsVendidos_.agregarAtras(t);
+        is >> p;
+    }
+
+    is >> p; // [
+    is >> p; // (
+    while (p == '(') {
+        getline(is,s,','); // saca hasta la coma de la dupla: es la sala de la peli
+        is >> p; // (
+        peli.cargar(is);
+        peliculas_.agregarAtras(pair<Pelicula, Sala>(peli,s)); //sacamos la peli
+        is >> p; // )
+        is >> p; // )
+        is >> p; // es una coma o un corchete
+        if (p == ',') is >> p;
+    }
+}
+

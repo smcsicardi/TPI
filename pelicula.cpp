@@ -70,3 +70,87 @@ void Pelicula::sacarGenerosRepConsec(Lista<Genero> &orig) {
     }
   }
 }
+
+void Pelicula::mostrar(std::ostream& os) const {
+    os << "Nombre: " << nombre_ << ", Generos: " << generos_ << ", Actores: " << actores_ << ", 3D: " << es3D_ << endl;
+}
+
+void Pelicula::guardar(std::ostream& os) const {
+    int i = 0;
+    string generos, actores;
+    os << "P |" << nombre_ << "| ";
+
+    while (i < generos_.longitud()) {
+        os << (i == 0 ? "[" : ", ") << "|" << generoToStr(generos_.iesimo(i)) << "|";
+        i++;
+    }
+    os << "]";
+
+    i = 0;
+    while (i < actores_.longitud()) {
+        os << (i == 0 ? "[" : ", ") << "|" << actores_.iesimo(i) << "|";
+        i++;
+    }
+    os << "]";
+
+    os << (es3D_ ? "V" : "F") << endl;
+}
+
+void Pelicula::cargar (std::istream& is){
+    char p;
+    string x;
+    is >> p; // P
+    is >> p; // |
+    getline(is,nombre_,'|'); // sacamos el 2do pipe del nombre
+
+    // generos
+    is >> p; // [
+    is >> p; // si la lista es vacia es un corchete, si no, es pipe y entra al while
+    while ( p == '|') {
+        getline(is, x, '|');
+        generos_.agregarAtras(strToGenero(x));
+        is >> p; // puede ser coma o corchete
+        if (p == ',') {
+            is >> p; // pipe
+        }
+    }
+
+
+    // actores
+    is >> p; // [
+    is >> p; // si la lista es vacia es un corchete, si no, es pipe y entra al while
+    while ( p == '|') {
+        getline(is, x, '|');
+        actores_.agregarAtras(x);
+        is >> p; // puede ser coma o corchete
+        if (p == ',') {
+            is >> p; // pipe
+        }
+    }
+
+    is >> p; // 3d
+
+    es3D_ = p == 'V';
+}
+
+Genero Pelicula::strToGenero(string g) const {
+    Genero r;
+    if (g == "Aventura") r = Aventura;
+    else if (g == "Comedia") r = Comedia;
+    else if (g == "Drama") r = Drama;
+    else if (g == "Romantica") r = Romantica;
+    else r = Terror;
+
+    return r;
+}
+
+string Pelicula::generoToStr(Genero g) const {
+    string r;
+    if (g == Aventura) r = "Aventura";
+    else if (g == Comedia) r = "Comedia";
+    else if (g == Drama) r = "Drama";
+    else if (g == Romantica) r = "Romantica";
+    else r = "Terror";
+
+    return r;
+}

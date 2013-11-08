@@ -41,8 +41,7 @@ Pelicula Ticket::peliculaMenosVistaT(const Lista<Ticket> &ts) const {
 bool Ticket::todosLosTicketsParaLaMismaSalaT(const Lista<Ticket> &ts) const {
   bool res = true;
   int i = 0
-    , l = ts.longitud() - 1
-    ;
+    , l = ts.longitud() - 1;
   while (i < l && res) {
     res = ts.iesimo(i).salaT() == ts.iesimo(i+1).salaT();
   }
@@ -88,6 +87,7 @@ void Ticket::cargar (std::istream& is) {
     is >> p; // usado
     usado_ = p == 'V';
 }
+
 
 //######## Auxiliares #########
 

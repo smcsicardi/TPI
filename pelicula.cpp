@@ -1,24 +1,26 @@
+#include <iostream>
+#include <fstream>
 #include "pelicula.h"
 
 Pelicula::Pelicula (Nombre n, Lista<Genero> gs, Lista<Actor> as, bool b) {
   nombre_ = n;
-  generos_ = gs;
-  actores_ = as;
+  generos_ = Pelicula::sacarGenerosRepConsec(gs);
+  actores_ = Pelicula::sacarActoresRepConsec(as);
   es3D_ = b;
 }
 
 string Pelicula::nombreP() const {
   return nombre_;
 }
- 
+
 Lista<Genero> Pelicula::generosP() const {
   return generos_;
 }
- 
+
 Lista<Actor> Pelicula::actoresP() const {
   return actores_;
 }
- 
+
 bool Pelicula::es3DP() const {
   return es3D_;
 }
@@ -29,11 +31,8 @@ Lista<pair<Genero,Lista<Pelicula> > > Pelicula::agruparPelisPorGeneroP(Lista<Pel
 
 Lista<Pelicula> Pelicula::generarSagaDePeliculasP(Lista<Actor> as, Lista<Genero> gs, Lista<Nombre> nombres) const {
   Lista<Pelicula> res;
-  int cant = nombres.longitud()
-    , i = 0
-    ;
-  sacarGenerosRepConsec(gs);
-  sacarActoresRepConsec(as);
+  int cant = nombres.longitud();
+  int i = 0;
   while (i < cant) {
     res.agregarAtras(Pelicula(nombres.iesimo(i), gs, as, false));
     i++;
@@ -43,7 +42,7 @@ Lista<Pelicula> Pelicula::generarSagaDePeliculasP(Lista<Actor> as, Lista<Genero>
 
 //auxiliares
 
-void Pelicula::sacarActoresRepConsec(Lista<Actor> &orig) {
+Lista<Actor> Pelicula::sacarActoresRepConsec(Lista<Actor> orig) {
   int l = orig.longitud() - 1
     , i = 0
     ;
@@ -55,9 +54,10 @@ void Pelicula::sacarActoresRepConsec(Lista<Actor> &orig) {
        i++;
      }
   }
+  return orig;
 }
 
-void Pelicula::sacarGenerosRepConsec(Lista<Genero> &orig) {
+Lista<Genero> Pelicula::sacarGenerosRepConsec(Lista<Genero> orig) {
   int l = orig.longitud() - 1
     , i = 0
     ;
@@ -69,7 +69,8 @@ void Pelicula::sacarGenerosRepConsec(Lista<Genero> &orig) {
       i++;
     }
   }
-}
+  return orig;
+  }
 
 void Pelicula::mostrar(std::ostream& os) const {
     os << "Nombre: " << nombre_ << ", Generos: " << generos_ << ", Actores: " << actores_ << ", 3D: " << es3D_ << endl;

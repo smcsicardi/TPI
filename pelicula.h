@@ -33,12 +33,12 @@ class Pelicula {
     Lista<Genero> generos_;
     Lista<Actor> actores_;
     bool es3D_;
-    
+
     Genero strToGenero(string g) const;
     string generoToStr(Genero g) const;
 
-    void sacarActoresRepConsec(Lista<string> orig);
-    void sacarGenerosRepConsec(Lista<Genero> orig);
+    Lista<Actor> sacarActoresRepConsec(Lista<Actor> orig);
+    Lista<Genero> sacarGenerosRepConsec(Lista<Genero> orig);
 };
 
 std::ostream & operator<<(std::ostream & os,const Pelicula & p);

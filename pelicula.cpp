@@ -73,7 +73,7 @@ Lista<Genero> Pelicula::sacarGenerosRepConsec(Lista<Genero> orig) {
   }
 
 void Pelicula::mostrar(std::ostream& os) const {
-    os << "Nombre: " << nombre_ << ", Generos: " << generos_ << ", Actores: " << actores_ << ", 3D: " << es3D_ << endl;
+    os << "Nombre: " << nombre_ << ", Generos: " << generos_ << ", Actores: " << actores_ << ", 3D: " << es3D_;
 }
 
 void Pelicula::guardar(std::ostream& os) const {
@@ -94,7 +94,7 @@ void Pelicula::guardar(std::ostream& os) const {
     }
     os << "]";
 
-    os << (es3D_ ? "V" : "F") << endl;
+    os << (es3D_ ? "V" : "F");
 }
 
 void Pelicula::cargar (std::istream& is){

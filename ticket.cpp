@@ -67,13 +67,13 @@ Lista<Ticket> Ticket::cambiarSalaT(const Lista<Ticket> &ts, Sala vieja, Sala nue
 void Ticket::mostrar(std::ostream& os) const {
     os << "Pelicula: ";
     pelicula_.mostrar(os);
-    os << ", Sala: " << sala_ << ", Usado: " << usado_ << endl;
+    os << ", Sala: " << sala_ << ", Usado: " << usado_;
 }
 
 void Ticket::guardar(std::ostream& os) const {
     os << "P (";
     pelicula_.guardar(os);
-    os << ") " << sala_ << " " << (usado_? "V" : "F") << endl;
+    os << ") " << sala_ << " " << (usado_? "V" : "F");
 }
 
 void Ticket::cargar (std::istream& is) {

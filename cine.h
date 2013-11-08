@@ -20,14 +20,14 @@ class Cine {
       ticketsVendidos_ = c.ticketsVendidos_;
       salasSinUsar_ = c.salasSinUsar_;
     }
-   
+
     string nombreC() const;
     Lista<Pelicula> peliculasC() const;
     Lista<Sala> salasC() const;
     Sala salaC(const Nombre &p) const;
     int espectadoresC(Sala s) const;
     Lista<Ticket> ticketsVendidosSinUsarC() const;
- 
+
     void abrirSalaC(Sala s);
     void agregarPeliculaC(const Pelicula &c, Sala s);
     void cerrarSalaC(Sala s);
@@ -37,11 +37,11 @@ class Cine {
     Ticket venderTicketC(const Nombre &p);
     Ticket ingresarASalaC(Sala s, const Ticket &t);
     Pelicula pasarA3DUnaPeliculaC(Nombre n);
- 
+
     void mostrar(std::ostream& os) const;
     void guardar(std::ostream& os) const;
     void cargar (std::istream& is);
- 
+
   private:
     Nombre nombre_;
     Lista<pair<Pelicula,Sala> > peliculas_;

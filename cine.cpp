@@ -61,9 +61,7 @@ Sala Cine::salaC(const Nombre &p) const {
 
 Lista<Ticket> Cine::ticketsVendidosSinUsarC() const {
 Lista<Ticket> res;
-  int i = 0,
-    , l = ticketsVendidos_.longitud()
-    ;
+  int i = 0, l = ticketsVendidos_.longitud();
   Lista<Ticket> sinUsar;
   while (i < l) {
     if (!ticketsVendidos_.iesimo(i).usadoT())
@@ -85,9 +83,7 @@ void Cine::agregarPeliculaC(const Pelicula &c, Sala s) {
 
 void Cine::cerrarSalaC(Sala s){
   salasC().eliminarPosicion(salasC().posicion(s));
-  int i = 0
-    , l = peliculas_.longitud()
-    ;
+  int i = 0 , l = peliculas_.longitud();
   while (i < l) {
     if (peliculas_.iesimo(i).second == s) {
       peliculas_.eliminarPosicion(i);
@@ -98,13 +94,12 @@ void Cine::cerrarSalaC(Sala s){
 }
 
 void Cine::cerrarSalasC(int e) {
-  int i = 0
-    , l = salasC().longitud()
-    ;
+  int i = 0, l = salasC().longitud();
   while (i < l) {
     Sala sala = salasC().iesimo(i);
-    if (espectadoresC(sala) < e)
+    if (espectadoresC(sala) < e) {
       cerrarSalaC(sala);
+    }
     i++;
   }
 }
@@ -113,7 +108,8 @@ void Cine::cerrarSalasDeLaCadenaC(Lista<Cine> &cs, int e) const {
   int i = 0;
   int l = cs.longitud();
   while (i < l) {
-    cs.iesimo(i).cerrarSalasC(e);
+    Cine cine = cs.iesimo(i);
+    cine.cerrarSalasC(e);
     i++;
   }
 }
@@ -290,4 +286,3 @@ void Cine::cargar (std::istream& is){
         if (p == ',') is >> p;
     }
 }
-

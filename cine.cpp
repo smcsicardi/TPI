@@ -228,19 +228,19 @@ void Cine::guardar(std::ostream& os) const {
         os << (i == 0 ? "" : ", ") << "(" << p.second << ", (";
         p.first.guardar(os);
         os << "))";
+        i++;
     }
     os << "]";
 }
 
 void Cine::cargar (std::istream& is){
     char p;
-    int s, e, x,t;
-        i = 0;
-    Ticket tt;
+    int s, e, x;
+    Ticket t;
     Pelicula peli;
     pair<Sala, int> sala;
 
-    is >> p; // C
+    is >> p; // C
     is >> p; // |
     getline(is,nombre_,'|'); // nombre y saca el |
 
@@ -256,7 +256,7 @@ void Cine::cargar (std::istream& is){
     while (p == '(') {
         is >> s; // saca hasta la coma de la dupla
         is >> e; // saca los espectadores
-        
+
         sala = pair<Sala, int>(s,e);
         espectadores_.agregarAtras(sala);
         is >> p; //saca la coma
@@ -266,16 +266,9 @@ void Cine::cargar (std::istream& is){
     is >> p; // [
     is >> p; // (
     while (p == '(') {
-        is >> x; // Saca la sala, es un int
-        is >> t; // Saca la CANTIDAD de tickets sin usar
-        
-        // Aca agrego un ticket por cada ticket sin usar en t
-        while (i < t) {
-            tt = Ticket(peliculaC(x),x,false);
-            ticketsVendidos_.agregarAtras(tt);
-            i++;
-        }
-        i = 0;
+        is >> x;
+        t.cargar(is);
+        ticketsVendidos_.agregarAtras(t);
         is >> p;
     }
 

@@ -26,7 +26,8 @@ bool Pelicula::es3DP() const {
 }
 
 Lista<pair<Genero,Lista<Pelicula> > > Pelicula::agruparPelisPorGeneroP(Lista<Pelicula> ps) const {
-
+Lista<pair<Genero,Lista<Pelicula> > > res;
+return res;
 };
 
 Lista<Pelicula> Pelicula::generarSagaDePeliculasP(Lista<Actor> as, Lista<Genero> gs, Lista<Nombre> nombres) const {

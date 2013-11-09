@@ -235,8 +235,9 @@ void Cine::guardar(std::ostream& os) const {
 
 void Cine::cargar (std::istream& is){
     char p;
-    int s, e, x;
-    Ticket t;
+    int s, e, x,t,
+    i = 0;
+    Ticket tt;
     Pelicula peli;
     pair<Sala, int> sala;
 
@@ -266,10 +267,17 @@ void Cine::cargar (std::istream& is){
     is >> p; // [
     is >> p; // (
     while (p == '(') {
-        is >> x;
-        t.cargar(is);
-        ticketsVendidos_.agregarAtras(t);
-        is >> p;
+        is >> x; // Saca la sala, es un int
+        is >> t; // Saca la CANTIDAD de tickets sin usar
+
+         // Aca agrego un ticket por cada ticket sin usar en t
+        while (i < t) {
+             tt = Ticket(peliculaC(x),x,false);
+             ticketsVendidos_.agregarAtras(tt);
+             i++;
+         }
+    i = 0;
+    is >> p;
     }
 
     is >> p; // [

@@ -256,6 +256,7 @@ void Cine::cargar (std::istream& is){
     is >> p; // ( ó ]
     while (p == '(') {
         is >> s; // saca hasta la coma de la dupla
+        is >> p; // saca la coma
         is >> e; // saca los espectadores
 
         sala = pair<Sala, int>(s,e);

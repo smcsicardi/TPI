@@ -61,38 +61,6 @@ Lista<Pelicula> Pelicula::generarSagaDePeliculasP(Lista<Actor> as, Lista<Genero>
   return res;
 }
 
-// auxiliares
-
-Lista<Actor> Pelicula::sacarActoresRepConsec(Lista<Actor> orig) {
-  int l = orig.longitud() - 1
-    , i = 0
-    ;
-  while (i < l) {
-   if (orig.iesimo(i) == orig.iesimo(i+1)){
-     orig.eliminarPosicion(i);
-     l--;
-   } else {
-     i++;
-   }
-  }
-  return orig;
-}
-
-Lista<Genero> Pelicula::sacarGenerosRepConsec(Lista<Genero> orig) {
-  int l = orig.longitud() - 1
-    , i = 0
-    ;
-  while (i < l) {
-    if (orig.iesimo(i) == orig.iesimo(i+1)){
-      orig.eliminarPosicion(i);
-      l--;
-    } else {
-      i++;
-    }
-  }
-  return orig;
-  }
-
 void Pelicula::mostrar(std::ostream& os) const {
   os << "Nombre: " << nombre_ << ", Generos: " << generos_ << ", Actores: " << actores_ << ", 3D: " << es3D_ << endl;
 }
@@ -153,6 +121,38 @@ void Pelicula::cargar (std::istream& is){
   is >> p; // 3d
 
   es3D_ = p == 'V';
+}
+
+// auxiliares
+
+Lista<Actor> Pelicula::sacarActoresRepConsec(Lista<Actor> orig) const {
+  int l = orig.longitud() - 1
+    , i = 0
+    ;
+  while (i < l) {
+   if (orig.iesimo(i) == orig.iesimo(i+1)){
+     orig.eliminarPosicion(i);
+     l--;
+   } else {
+     i++;
+   }
+  }
+  return orig;
+}
+
+Lista<Genero> Pelicula::sacarGenerosRepConsec(Lista<Genero> orig) const {
+  int l = orig.longitud() - 1
+    , i = 0
+    ;
+  while (i < l) {
+    if (orig.iesimo(i) == orig.iesimo(i+1)){
+      orig.eliminarPosicion(i);
+      l--;
+    } else {
+      i++;
+    }
+  }
+  return orig;
 }
 
 Genero Pelicula::strToGenero(string g) const {

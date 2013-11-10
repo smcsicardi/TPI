@@ -37,7 +37,7 @@ class Pelicula {
     Genero strToGenero(string g) const;
     string generoToStr(Genero g) const;
 
-    Lista<Actor> sacarActoresRepConsec(Lista<Actor> original) const;
+    Lista<Actor> sacarActoresRepConsec(Lista<Actor> orig) const;
     Lista<Genero> sacarGenerosRepConsec(Lista<Genero> orig) const;
     Lista<Genero> todosLosGeneros() const;
 };

@@ -26,10 +26,8 @@ void Ticket::usarT() {
 
 Pelicula Ticket::peliculaMenosVistaT(const Lista<Ticket> &ts) const {
   Pelicula res = ts.iesimo(0).peliculaT();
-  int i = 1
-    , l = ts.longitud()
-    ;
-  while (i < l) {
+  int i = 1;
+  while (i < ts.longitud()) {
     if (cuentaTicketsUsados(ts.iesimo(i).peliculaT(),ts) < cuentaTicketsUsados(res,ts)) {
       res = ts.iesimo(i).peliculaT();
     }
@@ -40,21 +38,18 @@ Pelicula Ticket::peliculaMenosVistaT(const Lista<Ticket> &ts) const {
 
 bool Ticket::todosLosTicketsParaLaMismaSalaT(const Lista<Ticket> &ts) const {
   bool res = true;
-  int i = 0
-    , l = ts.longitud() - 1;
-  while (i < l && res) {
+  int i = 0;
+  while (i < (ts.longitud() - 1) && res) {
     res = ts.iesimo(i).salaT() == ts.iesimo(i+1).salaT();
   }
   return res;
 }
 
 Lista<Ticket> Ticket::cambiarSalaT(const Lista<Ticket> &ts, Sala vieja, Sala nueva) const {
-  int i = 0
-    , l = ts.longitud()
-    ;
+  int i = 0;
   Ticket nuevo = Ticket();
   Lista<Ticket> res;
-  while (i < l) {
+  while (i < ts.longitud()) {
     nuevo = ts.iesimo(i);
     if (nuevo.salaT() == vieja)
       nuevo.sala_ = nueva;
@@ -89,14 +84,13 @@ void Ticket::cargar (std::istream& is) {
 }
 
 
-//######## Auxiliares #########
+// auxiliares
 
 int cuentaTicketsUsados(Pelicula p, Lista<Ticket> ts) {
   int res = 0
     , i = 0
-    , l = ts.longitud()
     ;
-  while (i < l) {
+  while (i < ts.longitud()) {
     Ticket t = ts.iesimo(i);
     if ( t.peliculaT() == p && t.usadoT())
       res++;

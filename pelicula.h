@@ -37,8 +37,9 @@ class Pelicula {
     Genero strToGenero(string g) const;
     string generoToStr(Genero g) const;
 
-    Lista<Actor> sacarActoresRepConsec(Lista<Actor> orig);
-    Lista<Genero> sacarGenerosRepConsec(Lista<Genero> orig);
+    Lista<Actor> sacarActoresRepConsec(Lista<Actor> original) const;
+    Lista<Genero> sacarGenerosRepConsec(Lista<Genero> orig) const;
+    Lista<Genero> todosLosGeneros() const;
 };
 
 std::ostream & operator<<(std::ostream & os,const Pelicula & p);

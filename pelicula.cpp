@@ -27,11 +27,11 @@ bool Pelicula::es3DP() const {
 
 Lista<pair<Genero,Lista<Pelicula> > > Pelicula::agruparPelisPorGeneroP(Lista<Pelicula> ps) const {
   Lista<pair<Genero,Lista<Pelicula> > > res;
-  int i;
+  int i=0;
   Lista<Genero> generos = todosLosGeneros();
 
   while (i < generos.longitud()) { // por cada genero existente
-    int x;
+    int x=0;
     Lista<Pelicula> pelis;
 
     while (x < ps.longitud()) { // por cada peli
@@ -62,7 +62,14 @@ Lista<Pelicula> Pelicula::generarSagaDePeliculasP(Lista<Actor> as, Lista<Genero>
 }
 
 void Pelicula::mostrar(std::ostream& os) const {
-  os << "Nombre: " << nombre_ << ", Generos: " << generos_ << ", Actores: " << actores_ << ", 3D: " << es3D_ << endl;
+  Lista<string> gs;
+  int i = 0;
+  while (i < generos_.longitud()) {
+    gs.agregar(generoToStr(generos_.iesimo(i)));
+    i++;
+  }
+
+  os << "Nombre: " << nombre_ << ", Generos: " << gs << ", Actores: " << actores_ << ", 3D: " << es3D_;
 }
 
 void Pelicula::guardar(std::ostream& os) const {
@@ -81,7 +88,7 @@ void Pelicula::guardar(std::ostream& os) const {
     os << (i == 0 ? "[" : ", ") << "|" << actores_.iesimo(i) << "|";
     i++;
   }
-  os << "]";
+  os << "] ";
 
   os << (es3D_ ? "V" : "F");
 }

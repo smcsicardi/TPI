@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <string>
 #include <locale>
@@ -213,7 +214,7 @@ Lista<Genero> leerGeneros(){
     while(ingresarMas == "s") {
         cout << "Ingrese un genero (Aventura (A), Comedia (C), Drama (D), Romantica (R), Terror (T))" << endl;
         cin >> strGenero;
-        generos.agregar(leerGenero(strGenero));
+        generos.agregarAtras(leerGenero(strGenero));
         cout << "Desea ingresar otro genero?[s/n]" << endl;
         cin >> ingresarMas;
     }
@@ -232,7 +233,7 @@ Lista<Actor> leerActores(){
         cin.get(); //descartar \n que quedó buffereado
         
         getline(cin, actor);
-        actores.agregar(actor);
+        actores.agregarAtras(actor);
         cout << "Desea ingresar otro actor?[s/n]" << endl;
         cin >> ingresarMas;
     }
@@ -688,11 +689,14 @@ void MenuCine()
         {
             Nombre p;
             cout << "Ingrese la pelicula: " << endl;
-            cin >> p;
+            cin.get();
+            getline(cin, p);
+
 
             Pelicula p2 = cine.pasarA3DUnaPeliculaC(p);
             cout << "Pelicula: " << endl;
             p2.mostrar(cout);
+            cout << endl;
             cout << "Cine: " << endl;
             cine.mostrar(cout);
 

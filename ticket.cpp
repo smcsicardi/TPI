@@ -62,7 +62,6 @@ Lista<Ticket> Ticket::cambiarSalaT(const Lista<Ticket> &ts, Sala vieja, Sala nue
     }
     res.agregarAtras(nuevo);
     i++;
-
   }
   return res;
 
@@ -83,12 +82,17 @@ void Ticket::guardar(std::ostream& os) const {
 void Ticket::cargar (std::istream& is) {
     char p;
 
+    is >> p; // P
+    is >> p; // (
     pelicula_.cargar(is);
+    is >> p; // )
     is >> sala_;
+    is >> p; // usado
     usado_ = p == 'V';
 }
 
 
+// auxiliares
 
 int cuentaTicketsUsados(Pelicula p, Lista<Ticket> ts) {
   int res = 0

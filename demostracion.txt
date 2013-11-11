@@ -24,8 +24,10 @@ Lista<Ticket> Ticket::cambiarSalaT(const Lista<Ticket> &ts, Sala vieja, Sala nue
         Como vale W$\wedge$X$\wedge$Y$\wedge$Z, vale I
         */
   while (i < l) {
-    /* I:  W:0 $\ge$ i $\ge$ l $\wedge$ X:|res| == i $\wedge$ Y:($\forall$ j $\leftarrow$ [0..i), sala(ts[j]) $\neq$ vieja)ts[j] == res[j] $\wedge$
-        Z:($\forall$ j $\leftarrow$ [0..i), sala(ts[j]) == vieja)pelicula(res[j]) == pelicula(ts[j]) $\wedge$ usado(ts[j]) == usado(res[j]) $\wedge$ sala(res[j]) == nueva
+    /* I:  W:0 $\ge$ i $\ge$ l $\wedge$ X:|res| == i $\wedge$ 
+        Y:($\forall$ j $\leftarrow$ [0..i), sala(ts[j]) $\neq$ vieja)ts[j] == res[j] $\wedge$
+        Z:($\forall$ j $\leftarrow$ [0..i), sala(ts[j]) == vieja)pelicula(res[j]) == pelicula(ts[j]) $\wedge$ 
+        usado(ts[j]) == usado(res[j]) $\wedge$ sala(res[j]) == nueva
     */
     // Variante v: l-i
     // B: i < l
@@ -63,9 +65,12 @@ Lista<Ticket> Ticket::cambiarSalaT(const Lista<Ticket> &ts, Sala vieja, Sala nue
     // Vale |res| == |res@W3|+1 == i@W3 +1 == i@W1 +1
     // Implica res[i] == nuevo
     /* Implica ($\forall$ j $\leftarrow$ [0..i+1), sala(ts[j]) $\neq$ vieja)ts[j] == res[j] $\wedge$ 
-        ($\forall$ j $\leftarrow$ [0..i+1), sala(ts[j]) == vieja)pelicula(res[j]) == pelicula(ts[j]) $\wedge$ usado(ts[j]) ==  usado(res[j]) $\wedge$ sala(res[j]) == nueva
-        Porque valen Y y Z, y por Q, si sala(ts[i])==vieja, entonces pelicula(ts[i])== pelicula(nuevo) ==
-        pelicula(res[i]), idem con usado, y nueva==sala(res[i]). Si, en cambio, sala(ts[i])$\neq$vieja, entonces res[i] == nuevo == ts[i]. Luego, tanto Y como Z valen para j tomado de [0..i+1)
+        ($\forall$ j $\leftarrow$ [0..i+1), sala(ts[j]) == vieja)pelicula(res[j]) == pelicula(ts[j]) $\wedge$
+        usado(ts[j]) ==  usado(res[j]) $\wedge$ sala(res[j]) == nueva
+        Porque valen Y y Z, y por Q, si sala(ts[i])==vieja, entonces 
+        pelicula(ts[i])== pelicula(nuevo) == pelicula(res[i]), 
+        idem con usado, y nueva==sala(res[i]). Si, en cambio, sala(ts[i])$\neq$vieja, entonces 
+        res[i] == nuevo == ts[i]. Luego, tanto Y como Z valen para j tomado de [0..i+1)
     */
     i++;
     // Estado W5
@@ -74,7 +79,7 @@ Lista<Ticket> Ticket::cambiarSalaT(const Lista<Ticket> &ts, Sala vieja, Sala nue
     // Implica X (pues |res| == |res@W4| == |res@W1| + 1 == i@W1 + 1 == i@W4 + 1 == i@W5)
     // Implica Y (porque su condicion valia hasta i@W1+1(ultimo comentario de W4), y por lo tanto vale hasta i@W5)
     // Implica Z (Idem Y)
-    // Implica I (W$\wedge$X$\wedge$Y$\wedge$Z)  (I$\wedge$B (cuerpo) I $\rightarrow$ el cuerpo del ciclo preserva el invariante!)
+    // Implica I (W$\wedge$X$\wedge$Y$\wedge$Z)  (I$\wedge$B (cuerpo) I $\rightarrow$ el cuerpo del ciclo preserva el invariante!
 
     // El Variante decrece: v@W5 == l-i@W5 == l-(i@w1+1) == l-i@W1 -1 == v@w1-1 < v@w1
   }
@@ -85,9 +90,10 @@ Lista<Ticket> Ticket::cambiarSalaT(const Lista<Ticket> &ts, Sala vieja, Sala nue
     /*I$\wedge$no(B) $\rightarrow$ Qc
         Porque no(B)== (i$\ge$l) y W == (i$\ge$l) implican i==l. Y por X, i==|res|. 
         Luego, |res| == l == |ts|
-        Como i == |ts|, por Y y Z del invariante vale el resto de Qc: ($\forall$ j $\leftarrow$ [0..|ts|), sala(ts[j]) $\leftarrow$ vieja)ts[j] ==
-          res[j] $\wedge$ ($\forall$ j $\leftarrow$ [0..|ts|), sala(ts[j]) == vieja) 
-          pelicula(res[j]) == pelicula(ts[j]) $\wedge$ usado(ts[j]) ==  usado(res[j])
+        Como i == |ts|, por Y y Z del invariante vale el resto de 
+        Qc: ($\forall$ j $\leftarrow$ [0..|ts|), sala(ts[j]) $\leftarrow$ vieja)ts[j] == res[j] $\wedge$ ($\forall$ j $\leftarrow$ [0..|ts|), sala(ts[j]) == vieja) 
+          pelicula(res[j]) == pelicula(ts[j]) $\wedge$
+          usado(ts[j]) ==  usado(res[j])
           $\wedge$ sala(res[j]) == nueva
      Por lo tanto, I $\wedge$ no(B) implica Qc. El ciclo es correcto!
     */

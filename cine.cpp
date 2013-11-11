@@ -201,7 +201,7 @@ void Cine::mostrar(std::ostream& os) const {
     }
     os << endl << "Tickets vendidos sin usar (sala, cantidad): [";
 
-
+    i = 0;
     while (i < salasC().longitud()) {  //por cada sala
         j = 0;
         k = 0;

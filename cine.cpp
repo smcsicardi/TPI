@@ -191,22 +191,33 @@ Ticket Cine::ingresarASalaC(Sala s, const Ticket &t) {
 
 
 void Cine::mostrar(std::ostream& os) const {
-    int i = 0;
-    os << "Nombre: " << nombre_ << endl << "Salas y espectadores de cada una: " << espectadores_ << endl
-       << "Peliculas: ";
+    int i = 0, j, k;
+    os << "Nombre: " << nombre_ << endl << "Salas y espectadores de cada una: " << espectadores_ << endl << "Peliculas: ";
 
     while (i < peliculas_.longitud()) {
         peliculas_.iesimo(i).first.mostrar(os);
-        os <<"Sala: " << peliculas_.iesimo(i).second;
+        os << " Sala: " << peliculas_.iesimo(i).second;
         i++;
     }
-    os << endl << "Tickets Vendidos";
-    i = 0;
-    while (i < ticketsVendidos_.longitud()) {
-        ticketsVendidos_.iesimo(i).mostrar(os);
+    os << endl << "Tickets vendidos sin usar (sala, cantidad): [";
+
+
+    while (i < salasC().longitud()) {  //por cada sala
+        j = 0;
+        k = 0;
+        while (j < ticketsVendidos_.longitud()) {
+            Ticket t = ticketsVendidos_.iesimo(j);
+            if (t.salaT() == salasC().iesimo(i)) {
+                k++;
+            }
+            j++;
+        }
+
+        os << (i == 0 ? "" : ", ") << "(" << salasC().iesimo(i) << "," << k << ")";
+        
         i++;
     }
-    os << endl << "Salas sin usar: " << salasSinUsar_;
+    os << "]" << endl << "Salas sin usar: " << salasSinUsar_;
 }
 
 void Cine::guardar(std::ostream& os) const {
@@ -238,9 +249,10 @@ void Cine::guardar(std::ostream& os) const {
             }
             j++;
         }
-        if (k!=0){
-        os << (i == 0 ? "" : ", ") << "(" << salasC().iesimo(i) << "," << k << ")";
-        }
+
+        if (k!=0)
+          os << (i == 0 ? "" : ", ") << "(" << salasC().iesimo(i) << "," << k << ")";
+
         i++;
     }
     os << "] [";

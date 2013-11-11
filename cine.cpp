@@ -210,7 +210,7 @@ void Cine::mostrar(std::ostream& os) const {
 }
 
 void Cine::guardar(std::ostream& os) const {
-    int i = 0, j;
+    int i = 0, j, k;
     os << "C |" << nombre_ << "| [";
     while (i < salasSinUsar_.longitud()){
         os << (i == 0 ? "" : ", ") << salasSinUsar_.iesimo(i);
@@ -230,13 +230,15 @@ void Cine::guardar(std::ostream& os) const {
 
     while (i < salasC().longitud()) {  //por cada sala
         j = 0;
-        while (i < ticketsVendidos_.longitud()) {
-            Ticket t = ticketsVendidos_.iesimo(i);
+        k = 0;
+        while (j < ticketsVendidos_.longitud()) {
+            Ticket t = ticketsVendidos_.iesimo(j);
             if (t.salaT() == salasC().iesimo(i)) {
-                j++;
+                k++;
             }
+            j++;
         }
-        os << (i == 0 ? "" : ", ") << "(" << salasC().iesimo(i) << "," << j << ")";
+        os << (i == 0 ? "" : ", ") << "(" << salasC().iesimo(i) << "," << k << ")";
         i++;
     }
     os << "] [";
@@ -308,7 +310,6 @@ void Cine::cargar (std::istream& is){
         i = 0;
         is >> p; // )
         is >> p; // , o ]
-        cout << p << endl;
     }
 
     is >> p; // [

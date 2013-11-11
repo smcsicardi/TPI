@@ -238,7 +238,9 @@ void Cine::guardar(std::ostream& os) const {
             }
             j++;
         }
+        if (k!=0){
         os << (i == 0 ? "" : ", ") << "(" << salasC().iesimo(i) << "," << k << ")";
+        }
         i++;
     }
     os << "] [";
@@ -261,6 +263,7 @@ void Cine::cargar (std::istream& is){
     Ticket tt;
     Pelicula peli;
     pair<Sala, int> sala;
+    Lista<Ticket> preTickets;
 
     is >> p; // C
     is >> p; // |
@@ -300,11 +303,11 @@ void Cine::cargar (std::istream& is){
         is >> x; // Saca la sala, es un int
         is >> p; // Saca la coma
         is >> t; // Saca la CANTIDAD de tickets sin usar
-
+        Cine c;
          // Aca agrego un ticket por cada ticket sin usar en t
         while (i < t) {
-             tt = Ticket(peliculaC(x),x,false);
-             ticketsVendidos_.agregarAtras(tt);
+             tt = Ticket(peli,x,false);
+             preTickets.agregarAtras(tt);
              i++;
          }
         i = 0;
@@ -325,5 +328,17 @@ void Cine::cargar (std::istream& is){
         is >> p; // )
         is >> p; // es una coma o un corchete
         if (p == ',') is >> p;
+    }
+    while (i<preTickets.longitud()) {
+        int j = 0;
+        while (j<peliculas_.longitud()) {
+            if (peliculas_.iesimo(j).second == preTickets.iesimo(i).salaT()) {
+                peli = peliculas_.iesimo(j).first;
+            }
+            j++;
+        }
+        tt = Ticket(peli,preTickets.iesimo(i).salaT(),false);
+        ticketsVendidos_.agregarAtras(tt);
+        i++;
     }
 }

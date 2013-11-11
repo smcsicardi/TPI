@@ -254,7 +254,7 @@ void Cine::guardar(std::ostream& os) const {
 
 void Cine::cargar (std::istream& is){
     char p;
-    int s, e, x,t,
+    int s, e, x, t,
     i = 0;
     Ticket tt;
     Pelicula peli;
@@ -265,29 +265,38 @@ void Cine::cargar (std::istream& is){
     getline(is,nombre_,'|'); // nombre y saca el |
 
     is >> p; // [
-    while ( p != ']') {
-        is >> x;
-        salasSinUsar_.agregarAtras(x);
-        is >> p; // , ó ]
+    if (is.peek() != ']') {
+        while ( p != ']') {
+            is >> x;
+            salasSinUsar_.agregarAtras(x);
+            is >> p; // , o ]
+        }
+    } else {
+        is >> p;
     }
 
     is >> p; // [
     is >> p; // ( ó ]
     while (p == '(') {
-        is >> s; // saca hasta la coma de la dupla
+        is >> s; // saca la sala
         is >> p; // saca la coma
         is >> e; // saca los espectadores
 
         sala = pair<Sala, int>(s,e);
         espectadores_.agregarAtras(sala);
-        is >> p; //saca la coma
-        is >> p; // ) ó ]
+        is >> p; // )
+        is >> p; // , o ]
+        if (p == ',') is >> p; // (
     }
+
+
 
     is >> p; // [
     is >> p; // (
+
     while (p == '(') {
         is >> x; // Saca la sala, es un int
+        is >> p; // Saca la coma
         is >> t; // Saca la CANTIDAD de tickets sin usar
 
          // Aca agrego un ticket por cada ticket sin usar en t
@@ -296,14 +305,18 @@ void Cine::cargar (std::istream& is){
              ticketsVendidos_.agregarAtras(tt);
              i++;
          }
-    i = 0;
-    is >> p;
+        i = 0;
+        is >> p; // )
+        is >> p; // , o ]
+        cout << p << endl;
     }
 
     is >> p; // [
     is >> p; // (
+
     while (p == '(') {
         is >> s; // saca hasta la coma de la dupla: es la sala de la peli
+        is >> p; // ,
         is >> p; // (
         peli.cargar(is);
         peliculas_.agregarAtras(pair<Pelicula, Sala>(peli,s)); //sacamos la peli
